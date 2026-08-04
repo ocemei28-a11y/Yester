@@ -2,25 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Enforces the website to fill the whole screen, including safe zones -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Simple Safe Zone Photo Page</title>
+    <title>Screenshot Switcher</title>
     <style>
         body {
             margin: 0;
             font-family: sans-serif;
-            /* Protects your content from being cut off by device notches or home bars */
-            padding-top: env(safe-area-inset-top, 20px);
-            padding-bottom: env(safe-area-inset-bottom, 20px);
-            padding-left: env(safe-area-inset-left, 20px);
-            padding-right: env(safe-area-inset-right, 20px);
+            padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px) env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             background-color: #f0f0f0;
             box-sizing: border-box;
         }
+
+        /* Contains the first screenshot and the button layout */
+        #landing-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .reveal-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s ease;
+        }
+
+        .reveal-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Hides the second screenshot screen completely by default */
+        #hidden-screen {
+            display: none; 
+            text-align: center;
+        }
+
         img {
             max-width: 100%;
             height: auto;
@@ -31,8 +59,25 @@
 </head>
 <body>
 
-    <!-- Your local photo tag -->
-    <img src="IMG_0023.png" alt="Local photograph" width="600">
+    <!-- First Screen: Shows the first screenshot and the action button -->
+    <div id="landing-screen">
+        <img src="IMG_0023.png" alt="First Screenshot" width="600">
+        <button class="reveal-btn" onclick="showPage()">Open Second Screenshot</button>
+    </div>
+
+    <!-- Second Screen: Hidden until the button is clicked -->
+    <div id="hidden-screen">
+        <img src="IMG_0024.png" alt="Second Screenshot" width="600">
+    </div>
+
+    <script>
+        function showPage() {
+            // Hides the first screen layout
+            document.getElementById('landing-screen').style.display = 'none';
+            // Shows the second screenshot layout
+            document.getElementById('hidden-screen').style.display = 'block';
+        }
+    </script>
 
 </body>
 </html>
